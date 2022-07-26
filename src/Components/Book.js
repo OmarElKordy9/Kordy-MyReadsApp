@@ -9,12 +9,12 @@ const Book = ({ book, changeShelf }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${book.imageLinks.thumbnail})`,
+            backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
           }}
         ></div>
         <div className="book-shelf-changer">
           <select
-            defaultValue={book.shelf}
+            defaultValue={book.shelf ? book.shelf : "none"}
             onChange={(event) => changeShelf(book, event.target.value)}
           >
             <option value="none" disabled>
