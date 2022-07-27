@@ -10,6 +10,18 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [searchedBooks, setSearchedBooks] = useState([]);
 
+  const changeShelf = (book, desiredShelf) => {
+    const searchedBooks = books.map((b) => {
+      if (b.id === book.id) {
+        book.shelf = desiredShelf;
+        return book;
+      }
+      return b;
+    });
+    setBooks(searchedBooks);
+    BooksAPI.update(book, desiredShelf);
+  };
+
   useEffect(() => {
     BooksAPI.getAll().then((res) => {
       setBooks(res);
@@ -21,7 +33,6 @@ const App = () => {
     if (search) {
       BooksAPI.search(search).then((res) => {
         if (!res.error && isActive) {
-          console.log(res);
           setSearchedBooks(res);
         } else {
           setSearchedBooks([]);
@@ -34,17 +45,33 @@ const App = () => {
     };
   }, [search]);
 
-  const changeShelf = (book, desiredShelf) => {
-    const updatedBooks = books.map((b) => {
-      if (b.title === book.title) {
-        book.shelf = desiredShelf;
-        return book;
-      }
-      return b;
+  const putShelf = () => {
+    BooksAPI.getAll().then((mainBooks) => {
+      Object.keys(mainBooks).forEach(function (key) {
+        console.log(key, mainBooks[key]);
+      });
+      // const newArray = mainBooks.map((obj) => ({ ...obj }));
+      // console.log("here" + newArray[1].title);
+
+      BooksAPI.search(search).then((loadedBooks) => {
+        Object.keys(searchedBooks).forEach(function (key) {
+          console.log(key, searchedBooks[key]);
+        });
+      });
+      mainBooks.forEach((b) => {
+        searchedBooks.forEach((a) => {
+          if (b.id === a.id) {
+            a.shelf = b.shelf;
+            console.log(a.shelf + "w bardp" + a.title);
+          } else {
+            a.shelf = "none";
+          }
+          return searchedBooks;
+        });
+      });
     });
-    setBooks(updatedBooks);
-    BooksAPI.update(book, desiredShelf);
   };
+
   return (
     <div className="app">
       {showSearchPage ? (
@@ -52,7 +79,7 @@ const App = () => {
           <div className="search-books-bar">
             <button
               className="close-search"
-              onClick={() => setShowSearchPage(!showSearchPage)}
+              onClick={() => setShowSearchPage(false)}
             >
               Close
             </button>
@@ -69,7 +96,11 @@ const App = () => {
             <ol className="books-grid">
               {searchedBooks.map((b) => (
                 <li key={b.id}>
-                  <Book book={b} changeShelf={changeShelf} />
+                  <Book
+                    book={b}
+                    changeShelf={changeShelf}
+                    putShelf={putShelf}
+                  />
                 </li>
               ))}
             </ol>
