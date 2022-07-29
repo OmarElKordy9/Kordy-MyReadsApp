@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import MainPage from "./Components/MainPage";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Components/Book";
+import SearchPage from "./Components/SearchPage";
+import BooksPage from "./Components/BooksPage";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -50,45 +52,19 @@ const App = () => {
   return (
     <div className="app">
       {showSearchPage ? (
-        <div className="search-books">
-          <div className="search-books-bar">
-            <button
-              className="close-search"
-              onClick={() => setShowSearchPage(false)}
-            >
-              Close
-            </button>
-            <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title, author, or ISBN"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid">
-              {searchedBooks.map((b) => (
-                <li key={b.id}>
-                  <Book book={b} changeShelf={changeShelf} />
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
+        <SearchPage
+          setShowSearchPage={setShowSearchPage}
+          changeShelf={changeShelf}
+          search={search}
+          setSearch={setSearch}
+          searchedBooks={searchedBooks}
+        />
       ) : (
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <MainPage books={books} changeShelf={changeShelf} />
-          </div>
-          <div className="open-search">
-            <button onClick={() => setShowSearchPage(true)}>Add a book</button>
-          </div>
-        </div>
+        <BooksPage
+          changeShelf={changeShelf}
+          setShowSearchPage={setShowSearchPage}
+          books={books}
+        />
       )}
     </div>
   );

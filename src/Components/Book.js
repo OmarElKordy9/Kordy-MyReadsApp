@@ -4,13 +4,13 @@ import * as BooksAPI from "../BooksAPI";
 const Book = ({ book, changeShelf }) => {
   const [prevBooks, setPrevBooks] = useState([]);
 
-  prevBooks.forEach((b) => {
-    if (book.id === b.id) {
-      book.shelf = b.shelf;
-    } else {
-      book.shelf = "none";
-    }
-  });
+  // prevBooks.forEach((b) => {
+  //   if (book.id === b.id) {
+  //     book.shelf = b.shelf;
+  //   } else {
+  //     book.shelf = "none";
+  //   }
+  // });
 
   BooksAPI.getAll().then((res) => {
     setPrevBooks(res);
