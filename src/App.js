@@ -1,10 +1,9 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import MainPage from "./Components/MainPage";
 import * as BooksAPI from "./BooksAPI";
-import Book from "./Components/Book";
 import SearchPage from "./Components/SearchPage";
 import BooksPage from "./Components/BooksPage";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -50,23 +49,39 @@ const App = () => {
   }, [search]);
 
   return (
-    <div className="app">
-      {showSearchPage ? (
-        <SearchPage
-          setShowSearchPage={setShowSearchPage}
-          changeShelf={changeShelf}
-          search={search}
-          setSearch={setSearch}
-          searchedBooks={searchedBooks}
-        />
-      ) : (
-        <BooksPage
-          changeShelf={changeShelf}
-          setShowSearchPage={setShowSearchPage}
-          books={books}
-        />
-      )}
-    </div>
+    <Router>
+      <div className="app">
+        <Routes>
+          {showSearchPage ? (
+            <Route
+              exact
+              path="/"
+              element={
+                <SearchPage
+                  setShowSearchPage={setShowSearchPage}
+                  changeShelf={changeShelf}
+                  search={search}
+                  setSearch={setSearch}
+                  searchedBooks={searchedBooks}
+                />
+              }
+            />
+          ) : (
+            <Route
+              exact
+              path="/"
+              element={
+                <BooksPage
+                  changeShelf={changeShelf}
+                  setShowSearchPage={setShowSearchPage}
+                  books={books}
+                />
+              }
+            />
+          )}
+        </Routes>
+      </div>
+    </Router>
   );
 };
 export default App;
