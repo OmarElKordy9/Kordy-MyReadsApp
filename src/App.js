@@ -33,6 +33,8 @@ const App = () => {
     if (search) {
       BooksAPI.search(search).then((res) => {
         if (!res.error && isActive) {
+          // console.log(books);
+          // assignShelf(res);
           setSearchedBooks(res);
         } else {
           setSearchedBooks([]);
@@ -44,33 +46,6 @@ const App = () => {
       setSearchedBooks([]);
     };
   }, [search]);
-
-  const putShelf = () => {
-    BooksAPI.getAll().then((mainBooks) => {
-      Object.keys(mainBooks).forEach(function (key) {
-        console.log(key, mainBooks[key]);
-      });
-      // const newArray = mainBooks.map((obj) => ({ ...obj }));
-      // console.log("here" + newArray[1].title);
-
-      BooksAPI.search(search).then((loadedBooks) => {
-        Object.keys(searchedBooks).forEach(function (key) {
-          console.log(key, searchedBooks[key]);
-        });
-      });
-      mainBooks.forEach((b) => {
-        searchedBooks.forEach((a) => {
-          if (b.id === a.id) {
-            a.shelf = b.shelf;
-            console.log(a.shelf + "w bardp" + a.title);
-          } else {
-            a.shelf = "none";
-          }
-          return searchedBooks;
-        });
-      });
-    });
-  };
 
   return (
     <div className="app">
@@ -96,11 +71,7 @@ const App = () => {
             <ol className="books-grid">
               {searchedBooks.map((b) => (
                 <li key={b.id}>
-                  <Book
-                    book={b}
-                    changeShelf={changeShelf}
-                    putShelf={putShelf}
-                  />
+                  <Book book={b} changeShelf={changeShelf} />
                 </li>
               ))}
             </ol>

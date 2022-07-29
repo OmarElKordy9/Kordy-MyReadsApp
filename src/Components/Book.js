@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import * as BooksAPI from "../BooksAPI";
 
 const Book = ({ book, changeShelf }) => {
+  const [prevBooks, setPrevBooks] = useState([]);
+
+  prevBooks.forEach((b) => {
+    if (book.id === b.id) {
+      book.shelf = b.shelf;
+    } else {
+      book.shelf = "none";
+    }
+  });
+
+  BooksAPI.getAll().then((res) => {
+    setPrevBooks(res);
+  });
+
   return (
     <div className="book">
       <div className="book-top">
@@ -16,7 +31,7 @@ const Book = ({ book, changeShelf }) => {
         ></div>
         <div className="book-shelf-changer">
           <select
-            defaultValue={book.shelf ? book.shelf : "none"}
+            defaultValue={book.shelf}
             onChange={(event) => changeShelf(book, event.target.value)}
           >
             <option value="none" disabled>
