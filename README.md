@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OmarElKordy9/Kordy-MyReadsApp">
-    <img src="./images/text-editor.png" alt="Logo" width="80" height="80">
+    <img src="./public/open-book.gif"80" height="80">
   </a>
 
   <h3 align="center">MyReads</h3>
