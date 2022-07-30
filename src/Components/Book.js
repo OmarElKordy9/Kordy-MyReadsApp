@@ -1,21 +1,7 @@
-import React, { useState } from "react";
-import * as BooksAPI from "../BooksAPI";
+import React from "react";
+import PropTypes from "prop-types";
 
 const Book = ({ book, changeShelf }) => {
-  const [prevBooks, setPrevBooks] = useState([]);
-
-  // prevBooks.forEach((b) => {
-  //   if (book.id === b.id) {
-  //     book.shelf = b.shelf;
-  //   } else {
-  //     book.shelf = "none";
-  //   }
-  // });
-
-  BooksAPI.getAll().then((res) => {
-    setPrevBooks(res);
-  });
-
   return (
     <div className="book">
       <div className="book-top">
@@ -48,6 +34,11 @@ const Book = ({ book, changeShelf }) => {
       <div className="book-authors">{book.authors}</div>
     </div>
   );
+};
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  changeShelf: PropTypes.func.isRequired,
 };
 
 export default Book;

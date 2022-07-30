@@ -13,7 +13,6 @@ const SearchPage = ({
     books.forEach((b) => {
       if (b.id === currentBook.id) {
         currentBook.shelf = b.shelf;
-        console.log(currentBook);
         return currentBook;
       } else if (typeof currentBook.shelf === "undefined") {
         currentBook.shelf = "none";
