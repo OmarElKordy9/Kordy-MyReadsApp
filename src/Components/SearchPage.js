@@ -1,22 +1,32 @@
 import React from "react";
 import Book from "./Book";
+import { Link } from "react-router-dom";
 
 const SearchPage = ({
-  setShowSearchPage,
   changeShelf,
   search,
   setSearch,
   searchedBooks,
+  books,
 }) => {
+  searchedBooks.filter((currentBook) => {
+    books.forEach((b) => {
+      if (b.id === currentBook.id) {
+        currentBook.shelf = b.shelf;
+        console.log(currentBook);
+        return currentBook;
+      } else if (typeof currentBook.shelf === "undefined") {
+        currentBook.shelf = "none";
+        return currentBook;
+      }
+    });
+  });
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <button
-          className="close-search"
-          onClick={() => setShowSearchPage(false)}
-        >
+        <Link to="/" className="close-search">
           Close
-        </button>
+        </Link>
         <div className="search-books-input-wrapper">
           <input
             type="text"

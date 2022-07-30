@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import * as BooksAPI from "./BooksAPI";
 import SearchPage from "./Components/SearchPage";
 import BooksPage from "./Components/BooksPage";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -52,33 +52,30 @@ const App = () => {
     <Router>
       <div className="app">
         <Routes>
-          {showSearchPage ? (
-            <Route
-              exact
-              path="/"
-              element={
-                <SearchPage
-                  setShowSearchPage={setShowSearchPage}
-                  changeShelf={changeShelf}
-                  search={search}
-                  setSearch={setSearch}
-                  searchedBooks={searchedBooks}
-                />
-              }
-            />
-          ) : (
-            <Route
-              exact
-              path="/"
-              element={
-                <BooksPage
-                  changeShelf={changeShelf}
-                  setShowSearchPage={setShowSearchPage}
-                  books={books}
-                />
-              }
-            />
-          )}
+          <Route
+            exact
+            path="/search"
+            element={
+              <SearchPage
+                books={books}
+                changeShelf={changeShelf}
+                search={search}
+                setSearch={setSearch}
+                searchedBooks={searchedBooks}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/"
+            element={
+              <BooksPage
+                changeShelf={changeShelf}
+                setShowSearchPage={setShowSearchPage}
+                books={books}
+              />
+            }
+          />
         </Routes>
       </div>
     </Router>
