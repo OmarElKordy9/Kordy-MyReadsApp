@@ -70,13 +70,6 @@ The project was built using:
 
 To run the application you can run it locally in your computer.
 
-### Prerequisites
-
-These are the things you need it installed on your computer to be able to run the project.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
@@ -87,8 +80,12 @@ This will tell you how to install the code and run the application in your compu
    git clone https://github.com/OmarElKordy9/Kordy-MyReadsApp
    ```
 2. Then you need to open the terminal.
+4. Then in the terminal you should run this command first.
+   ```sh
+   npm install
    ```
-3. Then in the  terminal you should run the file with the command.
+   ```
+3. Then you should run the file with the command.
    ```sh
    npm start
    ```
